@@ -1,4 +1,10 @@
 # Transaction client API
+
+before testing the api you have to run the sql commands from the sqlmigration folder connecting to the database with following credentials
+
+* user: postgres
+* password: password
+
 Create Client
 
     http://127.0.0.1:1101/api/v1/public/client
