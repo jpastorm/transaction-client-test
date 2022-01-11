@@ -55,6 +55,9 @@ func privateRoutes(api *echo.Echo, h handler, middlewares ...echo.MiddlewareFunc
 func publicRoutes(api *echo.Echo, h handler) {
 	route := api.Group("/api/v1/public/transaction")
 
+	route.POST("", h.Create)
+	route.PUT("/:id", h.Update)
+	route.DELETE("/:id", h.Delete)
 	route.GET("", h.GetAllWhere)
 	route.GET("/:id", h.GetWhere)
 }

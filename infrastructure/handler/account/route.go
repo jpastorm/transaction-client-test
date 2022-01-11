@@ -54,7 +54,9 @@ func privateRoutes(api *echo.Echo, h handler, middlewares ...echo.MiddlewareFunc
 // publicRoutes handle the routes that not requires a validation of any kind to be use
 func publicRoutes(api *echo.Echo, h handler) {
 	route := api.Group("/api/v1/public/account")
-
+	route.POST("", h.Create)
+	route.PUT("/:id", h.Update)
+	route.DELETE("/:id", h.Delete)
 	route.GET("", h.GetAllWhere)
 	route.GET("/:id", h.GetWhere)
 }
