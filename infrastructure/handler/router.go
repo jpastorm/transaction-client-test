@@ -4,6 +4,7 @@ import (
 	"github.com/jpastorm/transaction-client-test/infrastructure/handler/account"
 	"github.com/jpastorm/transaction-client-test/infrastructure/handler/client"
 	"github.com/jpastorm/transaction-client-test/infrastructure/handler/currency"
+	"github.com/jpastorm/transaction-client-test/infrastructure/handler/transaction"
 	"net/http"
 	"time"
 
@@ -41,6 +42,7 @@ func InitRoutes(specification model.RouterSpecification) {
 	// R
 	// S
 	// T
+	transaction.NewTransactionRouter(specification)
 	// U
 	// V
 	// W

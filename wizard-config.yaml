@@ -3,26 +3,29 @@
 module_name: github.com/jpastorm/transaction-client-test
 
 # Use for the name of the structs of the different layers
-model: Account
+model: Transaction
 
 # Will be use for the table name and constraints
 # also, it'll be converted to camel case to be use
 # for the Slice model
-table: account
+table: transaction
 
 table_comment: Write your comment here
 
 # a list of objects where you specify the name, type and if it allows nulls
 # by default, the id, created_at and updated_at fields, will be added
 fields:
-  - name: client_id
-    type: uint
-    is_null: false
-  - name: currency_id
-    type: uint
-    is_null: false
   - name: money
     type: float32
+    is_null: false
+  - name: type
+    type: string
+    is_null: false
+  - name: account_holder
+    type: uint
+    is_null: false
+  - name: subject
+    type: uint
     is_null: false
 
 # The available layers that we can generate
