@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"github.com/jpastorm/transaction-client-test/infrastructure/handler/account"
 	"github.com/jpastorm/transaction-client-test/infrastructure/handler/client"
 	"github.com/jpastorm/transaction-client-test/infrastructure/handler/currency"
 	"net/http"
@@ -17,6 +18,7 @@ func InitRoutes(specification model.RouterSpecification) {
 	// initialize scope package to validate permissions on admin routes
 
 	// A
+	account.NewAccountRouter(specification)
 	// B
 	// C
 	client.NewClientRouter(specification)
