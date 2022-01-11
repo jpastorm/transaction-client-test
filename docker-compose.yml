@@ -1,0 +1,20 @@
+version: "3.3"
+services:
+  app:
+    build:
+      context: . #current directory
+      dockerfile: Dockerfile #use the dockerfile called Dockerfile
+    ports:
+      - "1101:1101"
+    links:
+      - postgres
+    depends_on:
+      - postgres
+    networks:
+      - default
+  postgres:
+    image: 'postgres:latest'
+    environment:
+      - POSTGRES_PASSWORD=password
+    ports:
+      - '5432:5432'

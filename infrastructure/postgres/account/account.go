@@ -28,6 +28,7 @@ var (
 	psqlUpdate = postgres.BuildSQLUpdateByID(table, fields)
 	psqlDelete = "DELETE FROM " + table + " WHERE id = $1"
 	psqlGetAll = postgres.BuildSQLSelect(table, fields)
+	psqlTransfer = "UPDATE account SET money = $1 WHERE id = $2"
 )
 
 // Account struct that implement the interface domain.account.Storage
@@ -166,4 +167,24 @@ func (a Account) scanRow(s sqlutil.RowScanner) (model.Account, error) {
 	m.UpdatedAt = updatedAtNull.Time
 
 	return m, nil
+}
+
+
+// Transfer this method updates a model.Account by id
+func (a Account) Transfer(m *model.Account) error {
+	stmt, err := a.db.Prepare(psqlTransfer)
+	if err != nil {
+		return err
+	}
+	defer stmt.Close()
+
+	_, err = stmt.Exec(
+		m.Money,
+		m.ID,
+	)
+	if err != nil {
+		return postgres.CheckConstraint(constraints, err)
+	}
+
+	return nil
 }

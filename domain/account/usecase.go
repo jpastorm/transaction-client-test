@@ -61,6 +61,27 @@ func (a Account) Update(m *model.Account) error {
 	return nil
 }
 
+func (a Account) Transfer(m *model.Account) error {
+	if err := model.ValidateStructNil(m); err != nil {
+		return fmt.Errorf("account: %w", model.ErrNilPointer)
+	}
+
+	if !m.HasID() {
+		return fmt.Errorf("account: %w", model.ErrInvalidID)
+	}
+
+	if err := m.Validate(); err != nil {
+		return fmt.Errorf("account: %w", err)
+	}
+
+	err := a.storage.Transfer(m)
+	if err != nil {
+		return handleStorageErr(err)
+	}
+
+	return nil
+}
+
 // Delete deletes a model.Account by id
 func (a Account) Delete(ID uint) error {
 	err := a.storage.Delete(ID)

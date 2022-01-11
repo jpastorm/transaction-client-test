@@ -1,8 +1,12 @@
 package transaction
 
 import (
+	"github.com/jpastorm/transaction-client-test/domain/account"
+	"github.com/jpastorm/transaction-client-test/domain/currency"
 	"github.com/jpastorm/transaction-client-test/domain/transaction"
 	"github.com/jpastorm/transaction-client-test/infrastructure/handler/response"
+	accountStorage "github.com/jpastorm/transaction-client-test/infrastructure/postgres/account"
+	currencyStorage "github.com/jpastorm/transaction-client-test/infrastructure/postgres/currency"
 	transactionStorage "github.com/jpastorm/transaction-client-test/infrastructure/postgres/transaction"
 	"github.com/jpastorm/transaction-client-test/model"
 
@@ -24,7 +28,9 @@ func buildHandler(specification model.RouterSpecification) handler {
 	responser := response.New(specification.Logger)
 
 	useCase := transaction.New(transactionStorage.New(specification.DB))
-	return newHandler(useCase, responser)
+	useCaseAccount:= account.New(accountStorage.New(specification.DB))
+	useCaseCurrency := currency.New(currencyStorage.New(specification.DB))
+	return newHandler(useCase, useCaseAccount, useCaseCurrency, responser)
 }
 
 // adminRoutes handle the routes that requires a token and permissions to certain users

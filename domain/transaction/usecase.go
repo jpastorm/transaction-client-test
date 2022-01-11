@@ -81,6 +81,7 @@ func (t Transaction) GetWhere(specification models.FieldsSpecification) (model.T
 		return model.Transaction{}, fmt.Errorf("transaction: %w", err)
 	}
 
+
 	transaction, err := t.storage.GetWhere(specification)
 	if err != nil {
 		return model.Transaction{}, fmt.Errorf("transaction: %w", err)

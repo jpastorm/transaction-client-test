@@ -13,6 +13,7 @@ type UseCase interface {
 
 	GetWhere(specification models.FieldsSpecification) (model.Account, error)
 	GetAllWhere(specification models.FieldsSpecification) (model.Accounts, error)
+	Transfer(m *model.Account) error
 }
 
 type Storage interface {
@@ -22,4 +23,5 @@ type Storage interface {
 
 	GetWhere(specification models.FieldsSpecification) (model.Account, error)
 	GetAllWhere(specification models.FieldsSpecification) (model.Accounts, error)
+	Transfer(m *model.Account) error
 }

@@ -24,3 +24,25 @@ func (t Transaction) Validate() error {
 type Transactions []Transaction
 
 func (t Transactions) IsEmpty() bool { return len(t) == 0 }
+
+type TypeTransaction string
+
+var TypeTransactionMap = map[TypeTransaction]string{
+	Deposite: "DEPOSIT",
+	Withdraw: "WITHDRAW",
+	Transfer: "TRANSFER",
+}
+
+const (
+	Deposite TypeTransaction = "DEPOSIT"
+	Withdraw TypeTransaction = "WITHDRAW"
+	Transfer TypeTransaction = "TRANSFER"
+)
+
+func IsValidTransactionType(t string) bool {
+	if _, ok:= TypeTransactionMap[TypeTransaction(t)]; ok {
+		return true
+	}
+
+	return false
+}

@@ -36,9 +36,9 @@ func GetFiltersSpecification(c echo.Context) (models.FieldsSpecification, error)
 		}
 	}
 
-	return models.FieldsSpecification{
-		Filters:    fields,
-		Sorts:      sortsFields,
-		Pagination: pag,
-	}, nil
+		return models.FieldsSpecification{
+			Filters:    fields,
+			Sorts:      sortsFields,
+			Pagination: pag,
+		}, nil
 }

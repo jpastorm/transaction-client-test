@@ -1,6 +1,7 @@
 package client
 
 import (
+	"github.com/AJRDRGZ/db-query-builder/models"
 	"github.com/jpastorm/transaction-client-test/domain/client"
 	"github.com/jpastorm/transaction-client-test/infrastructure/handler/request"
 	"github.com/jpastorm/transaction-client-test/infrastructure/handler/response"
@@ -71,12 +72,17 @@ func (h handler) Delete(c echo.Context) error {
 
 // GetWhere handles the search of a model.Client
 func (h handler) GetWhere(c echo.Context) error {
-	filtersSpecification, err := request.GetFiltersSpecification(c)
+	ID, err := request.ExtractIDFromURLParam(c)
 	if err != nil {
 		return err
 	}
 
-	clientData, err := h.useCase.GetAllWhere(filtersSpecification)
+	filtersSpecification := models.FieldsSpecification{
+		Filters:    models.Fields{{Name: "id", Value: ID}},
+		Sorts:      models.SortFields{},
+		Pagination: models.Pagination{},
+	}
+	clientData, err := h.useCase.GetWhere(filtersSpecification)
 	if err != nil {
 		return h.response.Error(c, "useCase.GetWhere()", err)
 	}
