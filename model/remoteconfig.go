@@ -1,0 +1,12 @@
+package model
+
+import "time"
+
+// RemoteConfig is used to manage configurations that are remote, ej: in a table of a database
+type RemoteConfig interface {
+	GetString(name string) (string, bool)
+	GetInt(name string) (int, bool)
+	GetFloat64(name string) (float64, bool)
+	GetTime(name, format string) (time.Time, bool)
+	GetBool(name string) (bool, bool)
+}

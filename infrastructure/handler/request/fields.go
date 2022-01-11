@@ -1,0 +1,44 @@
+package request
+
+import (
+	"encoding/json"
+	"fmt"
+
+	"github.com/AJRDRGZ/db-query-builder/models"
+	"github.com/labstack/echo/v4"
+)
+
+func GetFiltersSpecification(c echo.Context) (models.FieldsSpecification, error) {
+	filters := c.QueryParam("filters")
+	fields := models.Fields{}
+	if filters != "" {
+		err := json.Unmarshal([]byte(filters), &fields)
+		if err != nil {
+			return models.FieldsSpecification{}, fmt.Errorf("invalid filter parameter")
+		}
+	}
+
+	sorts := c.QueryParam("sorts")
+	sortsFields := models.SortFields{}
+	if sorts != "" {
+		err := json.Unmarshal([]byte(sorts), &sortsFields)
+		if err != nil {
+			return models.FieldsSpecification{}, fmt.Errorf("invalid filter parameter")
+		}
+	}
+
+	pagination := c.QueryParam("pagination")
+	pag := models.Pagination{}
+	if pagination != "" {
+		err := json.Unmarshal([]byte(pagination), &pag)
+		if err != nil {
+			return models.FieldsSpecification{}, fmt.Errorf("invalid filter parameter")
+		}
+	}
+
+	return models.FieldsSpecification{
+		Filters:    fields,
+		Sorts:      sortsFields,
+		Pagination: pag,
+	}, nil
+}
